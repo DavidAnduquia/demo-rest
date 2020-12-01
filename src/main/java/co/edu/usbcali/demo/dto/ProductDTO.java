@@ -1,23 +1,23 @@
 package co.edu.usbcali.demo.dto;
 
 public class ProductDTO {
-	
+
 	private String proId;
-	
+
 	private String detail;
-	
+
 	private String enable;
-	
+
 	private String image;
-	
+
 	private String name;
-	
+
 	private Integer price;
 
-	
+
 
 	public ProductDTO() {
- 
+
 	}
 
 	public ProductDTO(String proId, String detail, String enable, String image, String name, Integer price) {

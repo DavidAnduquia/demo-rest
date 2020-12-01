@@ -30,7 +30,7 @@ public class ShoppingProductRepositoryTest {
 	
 	private static Integer sphrId=null;
 	
-	private static final String proId="APPL45";
+	private static final String proId="APPL90";
 			
 	private static final Integer carId=1;
 	

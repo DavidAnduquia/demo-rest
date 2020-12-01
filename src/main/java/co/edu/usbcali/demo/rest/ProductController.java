@@ -41,32 +41,32 @@ public class ProductController {
 	
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody ProductDTO productDTO) throws Exception{
-	 
+
 			Product product=productMapper.toProduct(productDTO);
 			product=productService.save(product);
 			productDTO=productMapper.toProductDTO(product);
 			return ResponseEntity.ok().body(productDTO);
-	 
+
 	}
-	
+
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@Valid @RequestBody ProductDTO productDTO) throws Exception {
-	 
+
 			Product product=productMapper.toProduct(productDTO);
 			product=productService.update(product);
 			productDTO=productMapper.toProductDTO(product);
 			return ResponseEntity.ok().body(productDTO);
-	
+
 	}
-	
+
 	@DeleteMapping("/delete/{proId}")
 	public ResponseEntity<?> delete(@PathVariable("proId") String proId) throws Exception {
-		 
+
 			productService.deleteById(proId);
 			return ResponseEntity.ok().build();
-			
+
 	}
-		
+
 	@GetMapping("/findById/{proId}")
 	public ResponseEntity<?> findById(@PathVariable("proId") String proId) throws Exception {
 
@@ -74,21 +74,21 @@ public class ProductController {
 			if(productOptional.isPresent()==false) {
 				return ResponseEntity.ok().body("Product Not Found");
 			}
-			
+
 			Product product  = productOptional.get();
 			ProductDTO productDTO = productMapper.toProductDTO(product);
 			return ResponseEntity.ok().body(productDTO);
-			
+
 		}
-		
-		
+
+
 		@GetMapping("/findAll")
 		public ResponseEntity<?> findAll() throws Exception{
-			 
+
 				List<Product> product = productRepository.findAll();
-				List<ProductDTO> productsDTO=productMapper.toProductsDTO(product);		 
+				List<ProductDTO> productsDTO=productMapper.toProductsDTO(product);
 				return ResponseEntity.ok().body(productsDTO);
-		 
+
 		}
-	
+
 }

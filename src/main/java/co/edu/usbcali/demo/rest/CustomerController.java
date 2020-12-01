@@ -30,85 +30,85 @@ import co.edu.usbcali.demo.service.CustomerService;
 @RequestMapping("/api/customer")
 @CrossOrigin("*")
 public class CustomerController {
-		
+
 	private final static Logger  log = LoggerFactory.getLogger(CustomerController.class);
 	@Autowired
 	CustomerRepository customerRepository;
-	@Autowired 
+	@Autowired
 	CustomerMapper customerMapper;
-	
+
 	@Autowired
 	CustomerService customerService;
-	
+
 	@RequestMapping("/save")
 	public ResponseEntity<?> save(@Valid @RequestBody CustomerDTO customerDTO) throws Exception {
-		 
+
 			Customer customer=customerMapper.toCustomer(customerDTO);
 			customer=customerService.save(customer);
 			customerDTO=customerMapper.toCustomerDTO(customer);
-			return ResponseEntity.ok().body(customerDTO); 
-	
+			return ResponseEntity.ok().body(customerDTO);
+
 	}
 
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@Valid @RequestBody CustomerDTO customerDTO) throws Exception {
-	 
+
 			Customer customer=customerMapper.toCustomer(customerDTO);
 			customer=customerService.update(customer);
 			customerDTO=customerMapper.toCustomerDTO(customer);
 			return ResponseEntity.ok().body(customerDTO);
-	
+
 	}
-		
+
 	@GetMapping("/findById/{email}")
 	public ResponseEntity<?> findById(@PathVariable("email") String email) throws Exception {
-		 
+
 			Optional<Customer> customerOptional = customerService.findById(email);
 			if(customerOptional.isPresent()==false) {
 				return ResponseEntity.ok().body("Customer Not Found");
 			}
-			
+
 			Customer customer  = customerOptional.get();
-			
+
 			CustomerDTO customerDTO = customerMapper.toCustomerDTO(customer);
-			 
+
 			return ResponseEntity.ok().body(customerDTO);
-			
+
 	}
-	
+
 	@DeleteMapping("/delete/{email}")
 	public ResponseEntity<?> delete(@PathVariable("email") String email) throws Exception {
-		 
+
 			customerService.deleteById(email);
 		/*
 			Optional<Customer> customerOptional = customerRepository.findById(email);
 			if(customerOptional.isPresent()==false) {
 				return ResponseEntity.ok().body("Customer Not Found");
 			}
-			
+
 			Customer customer  = customerOptional.get();
-			
+
 			CustomerDTO customerDTO = customerMapper.toCustomerDTO(customer);
 			*/
-		
+
 			return ResponseEntity.ok().build();
-			
-	}
-		
-	
-	//Lo mismo para product
-	
-	@GetMapping("/findAll")
-	public ResponseEntity<?> findAll() throws Exception {
-		 
-			List<Customer> customers = customerService.findAll();
-			List<CustomerDTO> customersDTOs=customerMapper.toCustomersDTO(customers);
-						 
-			return ResponseEntity.ok().body(customersDTOs);
-		 
+
 	}
 
-	
+
+	//Lo mismo para product
+
+	@GetMapping("/findAll")
+	public ResponseEntity<?> findAll() throws Exception {
+
+			List<Customer> customers = customerService.findAll();
+			List<CustomerDTO> customersDTOs=customerMapper.toCustomersDTO(customers);
+
+			return ResponseEntity.ok().body(customersDTOs);
+
+	}
+
+
 	@GetMapping("/findById-viejo/{email}")
 	public CustomerDTO findById_viejo(@PathVariable("email") String email) {
 		try {
@@ -116,9 +116,9 @@ public class CustomerController {
 			if(customerOptional.isPresent()==false) {
 				return null;
 			}
-			
+
 			Customer customer  = customerOptional.get();
-			
+
 			CustomerDTO customerDTO = new CustomerDTO();
 			customerDTO.setAddress(customer.getAddress());
 			customerDTO.setEmail(customer.getEmail());
@@ -126,14 +126,14 @@ public class CustomerController {
 			customerDTO.setName(customer.getName());
 			customerDTO.setPhone(customer.getPhone());
 			customerDTO.setToken(customer.getToken());
-				
+
 			return customerDTO;
-			
-			
+
+
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 			return null;
 		}
 	}
-	
+
 }
