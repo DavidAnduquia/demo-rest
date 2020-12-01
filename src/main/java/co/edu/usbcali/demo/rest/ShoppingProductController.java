@@ -82,7 +82,7 @@ public class ShoppingProductController {
 
 
   // Mis Url
-  @PostMapping("/addProduct/{carId}/{proId}/{quantity}")
+  @GetMapping("/addProduct/{carId}/{proId}/{quantity}")
 	public ResponseEntity<?> addShopinggProduct(@PathVariable("carId") Integer carId,@PathVariable("proId") String proId,@PathVariable("quantity") Integer quantity) throws Exception {
 
 		cartService.addProduct(carId, proId,quantity);
